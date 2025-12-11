@@ -93,7 +93,7 @@ void Arena::battle(size_t distance)
         start_range += 10;
     }
 
-    save_to_file("../fight.txt");
+    save_to_file("../res.txt");
 }
 
 void Arena::clear_npcs()
