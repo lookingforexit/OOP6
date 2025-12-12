@@ -7,7 +7,7 @@
 class IObserver
 {
 public:
-    virtual void on_kill(const std::string& killer, const std::string& victim) = 0;
+    virtual void msg_kill(const std::string& killer, const std::string& victim) = 0;
 
     virtual ~IObserver() = default;
 };
@@ -15,7 +15,7 @@ public:
 class IConsoleObserver final: public IObserver
 {
 public:
-    void on_kill(const std::string& killer, const std::string& victim) override;
+    void msg_kill(const std::string& killer, const std::string& victim) override;
 };
 
 class FileObserver final: public IObserver
@@ -26,7 +26,7 @@ public:
     FileObserver();
     ~FileObserver() override;
 public:
-    void on_kill(const std::string& killer, const std::string& victim) override;
+    void msg_kill(const std::string& killer, const std::string& victim) override;
 };
 
 #endif //OBSERVER_H

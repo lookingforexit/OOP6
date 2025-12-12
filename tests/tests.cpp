@@ -162,7 +162,7 @@ public:
     std::string last_killer;
     std::string last_victim;
 
-    void on_kill(const std::string& killer, const std::string& victim) override {
+    void msg_kill(const std::string& killer, const std::string& victim) override {
         kill_count++;
         last_killer = killer;
         last_victim = victim;
@@ -177,7 +177,7 @@ TEST_F(VisitorTest, FrogAttacksDragon) {
 
     BattleVisitor visitor(frog, obs);
     Dragon& dragon_ref = dynamic_cast<Dragon&>(*dragon);
-    visitor.visit(dragon_ref);
+    visitor.try_to_kill(dragon_ref);
 
     EXPECT_FALSE(dragon->is_alive);
     EXPECT_EQ(mock_observer->last_killer, "Frog");
@@ -192,7 +192,7 @@ TEST_F(VisitorTest, FrogAttacksKnight) {
 
     BattleVisitor visitor(frog, obs);
     Knight& knight_ref = dynamic_cast<Knight&>(*knight);
-    visitor.visit(knight_ref);
+    visitor.try_to_kill(knight_ref);
 
     EXPECT_FALSE(knight->is_alive);
     EXPECT_EQ(mock_observer->last_killer, "Frog");
@@ -207,7 +207,7 @@ TEST_F(VisitorTest, FrogAttacksFrog) {
 
     BattleVisitor visitor(frog1, obs);
     Frog& frog2_ref = dynamic_cast<Frog&>(*frog2);
-    visitor.visit(frog2_ref);
+    visitor.try_to_kill(frog2_ref);
 
     EXPECT_FALSE(frog2->is_alive);
     EXPECT_EQ(mock_observer->last_killer, "Frog");
@@ -222,7 +222,7 @@ TEST_F(VisitorTest, DragonAttacksKnight) {
 
     BattleVisitor visitor(dragon, obs);
     Knight& knight_ref = dynamic_cast<Knight&>(*knight);
-    visitor.visit(knight_ref);
+    visitor.try_to_kill(knight_ref);
 
     EXPECT_FALSE(knight->is_alive);
     EXPECT_EQ(mock_observer->last_killer, "Dragon");
@@ -237,7 +237,7 @@ TEST_F(VisitorTest, DragonAttacksFrog) {
 
     BattleVisitor visitor(dragon, obs);
     Frog& frog_ref = dynamic_cast<Frog&>(*frog);
-    visitor.visit(frog_ref);
+    visitor.try_to_kill(frog_ref);
 
     EXPECT_TRUE(frog->is_alive);
 }
@@ -250,7 +250,7 @@ TEST_F(VisitorTest, DragonAttacksDragon) {
 
     BattleVisitor visitor(dragon1, obs);
     Dragon& dragon2_ref = dynamic_cast<Dragon&>(*dragon2);
-    visitor.visit(dragon2_ref);
+    visitor.try_to_kill(dragon2_ref);
 
     EXPECT_TRUE(dragon2->is_alive);
 }
@@ -263,7 +263,7 @@ TEST_F(VisitorTest, KnightAttacksDragon) {
 
     BattleVisitor visitor(knight, obs);
     Dragon& dragon_ref = dynamic_cast<Dragon&>(*dragon);
-    visitor.visit(dragon_ref);
+    visitor.try_to_kill(dragon_ref);
 
     EXPECT_FALSE(dragon->is_alive);
     EXPECT_EQ(mock_observer->last_killer, "Knight");
@@ -278,7 +278,7 @@ TEST_F(VisitorTest, KnightAttacksFrog) {
 
     BattleVisitor visitor(knight, obs);
     Frog& frog_ref = dynamic_cast<Frog&>(*frog);
-    visitor.visit(frog_ref);
+    visitor.try_to_kill(frog_ref);
 
     EXPECT_TRUE(frog->is_alive);
 }
@@ -291,7 +291,7 @@ TEST_F(VisitorTest, KnightAttacksKnight) {
 
     BattleVisitor visitor(knight1, obs);
     Knight& knight2_ref = dynamic_cast<Knight&>(*knight2);
-    visitor.visit(knight2_ref);
+    visitor.try_to_kill(knight2_ref);
 
     EXPECT_TRUE(knight2->is_alive);
 }
@@ -307,7 +307,7 @@ TEST_F(VisitorTest, MultipleObserversNotified) {
 
     BattleVisitor visitor(frog, observers);
     Knight& knight_ref = dynamic_cast<Knight&>(*knight);
-    visitor.visit(knight_ref);
+    visitor.try_to_kill(knight_ref);
 
     EXPECT_EQ(obs1->kill_count, 1);
     EXPECT_EQ(obs2->kill_count, 1);

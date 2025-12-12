@@ -9,9 +9,9 @@
 class INPCVisitor
 {
 public:
-    virtual void visit(Dragon& dragon) = 0;
-    virtual void visit(Frog& frog) = 0;
-    virtual void visit(Knight& knight) = 0;
+    virtual void try_to_kill(Dragon& dragon) = 0;
+    virtual void try_to_kill(Frog& frog) = 0;
+    virtual void try_to_kill(Knight& knight) = 0;
 
     virtual ~INPCVisitor() = default;
 };
@@ -25,9 +25,9 @@ public:
     BattleVisitor(std::shared_ptr<NPC> attacker, std::vector<std::shared_ptr<IObserver>>& observers);
     ~BattleVisitor() override = default;
 public:
-    void visit(Dragon& defender) override;
-    void visit(Frog& defender) override;
-    void visit(Knight& defender) override;
+    void try_to_kill(Dragon& defender) override;
+    void try_to_kill(Frog& defender) override;
+    void try_to_kill(Knight& defender) override;
 public:
     void notify(const std::string& victim_type) const;
 };

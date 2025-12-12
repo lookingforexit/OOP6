@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void IConsoleObserver::on_kill(const std::string& killer, const std::string& victim)
+void IConsoleObserver::msg_kill(const std::string& killer, const std::string& victim)
 {
     std::cout << killer << " killed " << victim << std::endl;
 }
@@ -20,7 +20,7 @@ FileObserver::~FileObserver()
     }
 }
 
-void FileObserver::on_kill(const std::string& killer, const std::string& victim)
+void FileObserver::msg_kill(const std::string& killer, const std::string& victim)
 {
     if (file.is_open())
     {

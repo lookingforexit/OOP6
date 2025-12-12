@@ -12,7 +12,7 @@ Dragon::Dragon(int x, int y) : NPC(x, y) {}
 
 void Dragon::accept(INPCVisitor& visitor)
 {
-    visitor.visit(*this);
+    visitor.try_to_kill(*this);
 }
 
 std::string Dragon::get_type() const
@@ -24,7 +24,7 @@ Frog::Frog(int x, int y) : NPC(x, y) {}
 
 void Frog::accept(INPCVisitor& visitor)
 {
-    visitor.visit(*this);
+    visitor.try_to_kill(*this);
 }
 
 std::string Frog::get_type() const
@@ -36,7 +36,7 @@ Knight::Knight(int x, int y) : NPC(x, y) {}
 
 void Knight::accept(INPCVisitor& visitor)
 {
-    visitor.visit(*this);
+    visitor.try_to_kill(*this);
 }
 
 std::string Knight::get_type() const

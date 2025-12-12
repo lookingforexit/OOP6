@@ -5,7 +5,7 @@
 BattleVisitor::BattleVisitor(std::shared_ptr<NPC> attacker, std::vector<std::shared_ptr<IObserver>>& observers) :
                             attacker(std::move(attacker)), observers(observers) {}
 
-void BattleVisitor::visit(Dragon& defender)
+void BattleVisitor::try_to_kill(Dragon& defender)
 {
     if (attacker->get_type() == "Frog" || attacker->get_type() == "Knight")
     {
@@ -14,7 +14,7 @@ void BattleVisitor::visit(Dragon& defender)
     }
 }
 
-void BattleVisitor::visit(Frog& defender)
+void BattleVisitor::try_to_kill(Frog& defender)
 {
     if (attacker->get_type() == "Frog")
     {
@@ -23,7 +23,7 @@ void BattleVisitor::visit(Frog& defender)
     }
 }
 
-void BattleVisitor::visit(Knight& defender)
+void BattleVisitor::try_to_kill(Knight& defender)
 {
     if (attacker->get_type() == "Frog" || attacker->get_type() == "Dragon")
     {
@@ -36,6 +36,6 @@ void BattleVisitor::notify(const std::string& victim_type) const
 {
     for (const auto& observer : observers)
     {
-        observer->on_kill(attacker->get_type(), victim_type);
+        observer->msg_kill(attacker->get_type(), victim_type);
     }
 }
